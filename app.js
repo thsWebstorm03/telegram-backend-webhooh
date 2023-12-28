@@ -22,7 +22,7 @@ async function createTrelloWebhook() {
            idModel: boardID
        });
        console.log('Webhook created successfully:', response.data);
-       return res.json({
+       return response.json({
          trelloAPIKey: trelloAPIKey,
          text:"OK"
       });
