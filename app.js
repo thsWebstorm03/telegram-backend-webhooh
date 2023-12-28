@@ -33,31 +33,75 @@ async function createTrelloWebhook() {
 //    return res.send("Hello")
 // })
 
-app.post("/", (req, res) => {
+async function sendVideo(chatId, videoUrl, caption) {
+   try {
+       const response = await axios.post(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendVideo`, {
+           chat_id: chatId,
+           video: videoUrl,
+           caption: caption
+       });
+       console.log("Video sent successfully", response.data);
+   } catch (error) {
+       console.error("Error sending video", error);
+   }
+}
+
+async function sendMessage(chatId, text) {
+   try {
+       const response = await axios.post(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+           chat_id: chatId,
+           text: text,
+       });
+       console.log("Video sent successfully", response.data);
+   } catch (error) {
+       console.error("Error sending video", error);
+   }
+}
+
+app.post("/", async (req, res) => {
    // Check if it's a card move event
    console.log(req.body, 'req.body');
 
    if (
       req?.body?.action?.type === "updateCard" &&
-      req?.body?.action?.data?.listAfter
+      req?.body?.action?.data?.listAfter &&
+      req?.body?.action?.data?.listAfter?.name == "Finished"
    ) {
 
       const cardTitle = req.body.action.data.card.name;
+      const listname = req.body.action.data.listAfter.name;
+      const cardId = req.body.action.data.card.id;
+
+      const videoURLs=[];
+      try {
+         // Fetch attachments from Trello
+         const attachmentsResponse = await axios.get(`https://api.trello.com/1/cards/${cardId}/attachments?key=${trelloAPIKey}&token=${trelloToken}`);
+         
+         if (attachmentsResponse.data) {
+            // console.log(attachmentsResponse, 'at');
+            attachmentsResponse.data.map((item, i) => sendMessage('6456284057', `Video ${i+1} - ${item.url}`));
+            // console.log(videoURLs, 'vi')
+         }
+     } catch (error) {
+         console.error('Error processing Trello card:', error);
+     }
+
+
 
       // Send message to Telegram
-      axios
-         .post(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
-            chat_id: "6456284057",
-            text: `A card ${cardTitle} has been moved on Trello!`,
-         })
-         .then((response) => {
-            // Handle success
-            console.log("Successfully sent message");
-         })
-         .catch((error) => {
-            // Handle error
-            console.log("Error in sending a message", error)
-         });
+      // axios
+      //    .post(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      //       chat_id: "6456284057",
+      //       text: `A card ${cardTitle} has been moved to the list ${listname} on Trello!`,
+      //    })
+      //    .then((response) => {
+      //       // Handle success
+      //       console.log("Successfully sent message");
+      //    })
+      //    .catch((error) => {
+      //       // Handle error
+      //       console.log("Error in sending a message", error)
+      //    });
    }
 
    return res.send("Hello");
