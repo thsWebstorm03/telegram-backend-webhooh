@@ -1,10 +1,12 @@
 const dotenv = require("dotenv");
 dotenv.config();
+const cors = require('cors');
 
 const express = require("express");
 const axios = require( "axios");
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // Create a telegram bot with its API KEY
 const trelloAPIKey = process.env.TRELLO_API_KEY;
