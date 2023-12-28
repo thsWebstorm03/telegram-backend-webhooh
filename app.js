@@ -46,7 +46,7 @@ app.post("/", (req, res) => {
    // ) {
       // Send message to Telegram
       axios
-         .post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+         .post(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
             chat_id: "6456284057",
             text: "A card has been moved on Trello!",
          })
