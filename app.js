@@ -11,7 +11,7 @@ app.use(cors());
 // Create a telegram bot with its API KEY
 const trelloAPIKey = process.env.TRELLO_API_KEY;
 const trelloToken = process.env.TRELLO_API_TOKEN;
-const callbackURL = 'https://telegram-trello-webhook.onrender.com/trello-callback';
+const callbackURL = 'https://telegram-trello-webhook.onrender.com/';
 const boardID = process.env.TRELLO_BOARD_ID;
 
 async function createTrelloWebhook() {
@@ -29,11 +29,11 @@ async function createTrelloWebhook() {
    }
 }
 
-app.get("/", (req, res) => {
-   return res.send("Hello")
-})
+// app.get("/", (req, res) => {
+//    return res.send("Hello")
+// })
 
-app.post("/trello-callback", (req, res) => {
+app.post("/", (req, res) => {
    // Check if it's a card move event
    // console.log(req.body, 'req.body');
    // return res.json({
@@ -60,9 +60,9 @@ app.post("/trello-callback", (req, res) => {
          });
    // }
 
-   return res.status(200).send("OK");
+   return res.send("Hello");
 });
 
-createTrelloWebhook();
+// createTrelloWebhook();
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
