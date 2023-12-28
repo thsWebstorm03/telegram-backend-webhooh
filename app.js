@@ -63,6 +63,6 @@ app.post("/trello-callback", (req, res) => {
    return res.status(200).send("OK");
 });
 
-// createTrelloWebhook();
+createTrelloWebhook();
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
