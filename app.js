@@ -1,4 +1,3 @@
-const TelegramBot = require("node-telegram-bot-api");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -8,8 +7,6 @@ const app = express();
 app.use(express.json());
 
 // Create a telegram bot with its API KEY
-const token = process.env.TELEGRAM_BOT_TOKEN;
-const bot = new TelegramBot(token, { polling: true });
 const trelloAPIKey = process.env.TRELLO_API_KEY;
 const trelloToken = process.env.TRELLO_API_TOKEN;
 const callbackURL = 'https://telegram-trello-webhook.onrender.com';
