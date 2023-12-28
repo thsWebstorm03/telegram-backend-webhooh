@@ -12,7 +12,7 @@ const token = process.env.TELEGRAM_BOT_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 const trelloAPIKey = process.env.TRELLO_API_KEY;
 const trelloToken = process.env.TRELLO_API_TOKEN;
-const callbackURL = 'http://66.29.130.114/trello-callback';
+const callbackURL = 'https://telegram-trello-webhook.onrender.com';
 const boardID = process.env.TRELLO_BOARD_ID;
 
 async function createTrelloWebhook() {
