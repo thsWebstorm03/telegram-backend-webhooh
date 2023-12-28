@@ -31,6 +31,10 @@ async function createTrelloWebhook() {
    }
 }
 
+app.get("/", (req, res) => {
+   return res.send("Hello")
+})
+
 app.post("/trello-callback", (req, res) => {
    // Check if it's a card move event
    console.log(req.body, 'req.body');
