@@ -11,7 +11,7 @@ app.use(cors());
 // Create a telegram bot with its API KEY
 const trelloAPIKey = process.env.TRELLO_API_KEY;
 const trelloToken = process.env.TRELLO_API_TOKEN;
-const callbackURL = 'https://telegram-trello-webhook.onrender.com/';
+const callbackURL = 'https://telegram-trello-webhook.onrender.com/trello-callback';
 const boardID = process.env.TRELLO_BOARD_ID;
 
 async function createTrelloWebhook() {
@@ -24,10 +24,6 @@ async function createTrelloWebhook() {
            idModel: boardID
        });
        console.log('Webhook created successfully:', response.data);
-       return response.json({
-         trelloAPIKey: trelloAPIKey,
-         text:"OK"
-      });
    } catch (error) {
        console.error('Error creating webhook:', error);
    }
@@ -39,15 +35,15 @@ app.get("/", (req, res) => {
 
 app.post("/trello-callback", (req, res) => {
    // Check if it's a card move event
-   console.log(req.body, 'req.body');
-   return res.json({
-      trelloAPIKey: trelloAPIKey,
-      text:"OK"
-   });
-   if (
-      req.body.action.type === "updateCard" &&
-      req.body.action.data.listAfter
-   ) {
+   // console.log(req.body, 'req.body');
+   // return res.json({
+   //    trelloAPIKey: trelloAPIKey,
+   //    text:"OK"
+   // });
+   // if (
+   //    req.body.action.type === "updateCard" &&
+   //    req.body.action.data.listAfter
+   // ) {
       // Send message to Telegram
       axios
          .post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
@@ -62,11 +58,11 @@ app.post("/trello-callback", (req, res) => {
             // Handle error
             console.log("Error in sending a message", error)
          });
-   }
+   // }
 
-   res.status(200).send("OK");
+   return res.status(200).send("OK");
 });
 
-createTrelloWebhook();
+// createTrelloWebhook();
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
