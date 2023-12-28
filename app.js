@@ -35,20 +35,20 @@ async function createTrelloWebhook() {
 
 app.post("/", (req, res) => {
    // Check if it's a card move event
-   // console.log(req.body, 'req.body');
-   // return res.json({
-   //    trelloAPIKey: trelloAPIKey,
-   //    text:"OK"
-   // });
-   // if (
-   //    req.body.action.type === "updateCard" &&
-   //    req.body.action.data.listAfter
-   // ) {
+   console.log(req.body, 'req.body');
+
+   if (
+      req?.body?.action?.type === "updateCard" &&
+      req?.body?.action?.data?.listAfter
+   ) {
+
+      const cardTitle = req.body.action.data.card.name;
+
       // Send message to Telegram
       axios
          .post(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
             chat_id: "6456284057",
-            text: "A card has been moved on Trello!",
+            text: `A card ${cardTitle} has been moved on Trello!`,
          })
          .then((response) => {
             // Handle success
@@ -58,7 +58,7 @@ app.post("/", (req, res) => {
             // Handle error
             console.log("Error in sending a message", error)
          });
-   // }
+   }
 
    return res.send("Hello");
 });
