@@ -33,7 +33,10 @@ async function createTrelloWebhook() {
 app.post("/trello-callback", (req, res) => {
    // Check if it's a card move event
    console.log(req.body, 'req.body');
-   return;
+   return res.json({
+      token: token,
+      text:"OK"
+   });
    if (
       req.body.action.type === "updateCard" &&
       req.body.action.data.listAfter
