@@ -22,6 +22,10 @@ async function createTrelloWebhook() {
            idModel: boardID
        });
        console.log('Webhook created successfully:', response.data);
+       return res.json({
+         trelloAPIKey: trelloAPIKey,
+         text:"OK"
+      });
    } catch (error) {
        console.error('Error creating webhook:', error);
    }
@@ -31,7 +35,7 @@ app.post("/trello-callback", (req, res) => {
    // Check if it's a card move event
    console.log(req.body, 'req.body');
    return res.json({
-      token: token,
+      trelloAPIKey: trelloAPIKey,
       text:"OK"
    });
    if (
