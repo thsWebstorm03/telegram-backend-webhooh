@@ -11,7 +11,7 @@ app.use(cors());
 // Create a telegram bot with its API KEY
 const trelloAPIKey = process.env.TRELLO_API_KEY;
 const trelloToken = process.env.TRELLO_API_TOKEN;
-const callbackURL = 'https://telegram-trello-webhook.onrender.com/trello-callback';
+const callbackURL = 'https://telegram-trello-webhook.onrender.com/';
 const boardID = process.env.TRELLO_BOARD_ID;
 
 async function createTrelloWebhook() {
