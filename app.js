@@ -1,9 +1,9 @@
-import TelegramBot from "node-telegram-bot-api";
-import dotenv from "dotenv";
+const TelegramBot = require("node-telegram-bot-api");
+const dotenv = require("dotenv");
 dotenv.config();
 
-import express from "express";
-import axios from "axios";
+const express = require("express");
+const axios = require( "axios");
 const app = express();
 app.use(express.json());
 
