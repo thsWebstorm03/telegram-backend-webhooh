@@ -65,7 +65,7 @@ async function sendMessage(chatId, text) {
 
 app.post("/", async (req, res) => {
    // Check if it's a card move event
-   console.log(req.body, "req.body");
+   console.log(req.body, "req.body--");
 
    if (
       req?.body?.action?.type === "updateCard" &&
@@ -86,16 +86,16 @@ app.post("/", async (req, res) => {
             `https://api.trello.com/1/cards/${cardId}?key=${trelloAPIKey}&token=${trelloToken}`
          );
 
-         if (cardResponse.data) {
-            const cardDescription = cardResponse.data.desc;
-            const jsonData = JSON.parse(cardDescription);
-            const user_chat_id =
-               Object.keys(jsonData).indexOf("chatId") > -1
-                  ? jsonData.chatId
-                  : "6456284057";
+         const user_data = await Data.findAll({
+            where:{
+               "trello_card_id": cardId
+            }
+         });
 
-            console.log(user_chat_id, 'user_chat_id');
+         console.log(user_data, 'user_data---------');
 
+         if(user_data.length>0){
+            let user_chat_id = user_data[0]['telegram_id'];
             if (attachmentsResponse.data) {
                // console.log(attachmentsResponse, 'at');
                attachmentsResponse.data.map((item, i) =>
@@ -107,6 +107,28 @@ app.post("/", async (req, res) => {
                // console.log(videoURLs, 'vi')
             }
          }
+
+         // if (cardResponse.data) {
+         //    const cardDescription = cardResponse.data.desc;
+         //    const jsonData = JSON.parse(cardDescription);
+         //    const user_chat_id =
+         //       Object.keys(jsonData).indexOf("chatId") > -1
+         //          ? jsonData.chatId
+         //          : "6456284057";
+
+         //    console.log(user_chat_id, 'user_chat_id');
+
+         //    if (attachmentsResponse.data) {
+         //       // console.log(attachmentsResponse, 'at');
+         //       attachmentsResponse.data.map((item, i) =>
+         //          sendMessage(
+         //             user_chat_id,
+         //             `New notification arrived from Trello\n Finished Video ${i + 1} - ${item.url}`
+         //          )
+         //       );
+         //       // console.log(videoURLs, 'vi')
+         //    }
+         // }
       } catch (error) {
          console.error("Error processing Trello card:", error);
       }
