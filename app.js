@@ -101,7 +101,7 @@ app.post("/", async (req, res) => {
                attachmentsResponse.data.map((item, i) =>
                   sendMessage(
                      user_chat_id,
-                     `New notification arrived from Trello\n Finished Video ${i + 1} - "${item.fileName}" \n ${item.url}`
+                     `New notification arrived from Trello\n Finished Video ${i + 1} - ${item.url}`
                   )
                );
                // console.log(videoURLs, 'vi')
