@@ -111,20 +111,6 @@ app.post("/", async (req, res) => {
          console.error("Error processing Trello card:", error);
       }
 
-      // Send message to Telegram
-      // axios
-      //    .post(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
-      //       chat_id: "6456284057",
-      //       text: `A card ${cardTitle} has been moved to the list ${listname} on Trello!`,
-      //    })
-      //    .then((response) => {
-      //       // Handle success
-      //       console.log("Successfully sent message");
-      //    })
-      //    .catch((error) => {
-      //       // Handle error
-      //       console.log("Error in sending a message", error)
-      //    });
    }
 
    return res.send("Hello");
