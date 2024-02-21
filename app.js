@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 const Data = require("./Data");
+const {formatDateDifference} = require("./helper");
 
 // Create a telegram bot with its API KEY
 const trelloAPIKey = process.env.TRELLO_API_KEY;
@@ -101,20 +102,18 @@ app.post("/", async (req, res) => {
             });
 
             
-            // Calculate the difference in milliseconds
-            const differenceInMilliseconds = endDate - startDate;
+            // // Calculate the difference in milliseconds
+            // const differenceInMilliseconds = endDate - startDate;
 
-            // Convert the difference to various units
-            const differenceInSeconds = differenceInMilliseconds / 1000;
-            const differenceInMinutes = differenceInSeconds / 60;
-            const differenceInHours = differenceInMinutes / 60;
-            const differenceInDays = differenceInHours / 24;
-         
+            // // Convert the difference to various units
+            // const differenceInSeconds = parseInt(differenceInMilliseconds / 1000);
+            // const differenceInMinutes = parseInt(differenceInSeconds / 60);
+            // const differenceInHours = parseInt(differenceInMinutes / 60);
+            // const differenceInDays = parseInt(differenceInHours / 24);
+            
+            var difference = formatDateDifference(startDate, endDate);
             console.log(updated_result, 'updated_result-----------'); // Result will show the number of rows affected
-            console.log(differenceInSeconds, 'differenceInSeconds-----------');
-            console.log(differenceInMinutes, 'differenceInMinutes-----------');
-            console.log(differenceInHours, 'differenceInHours-----------');
-            console.log(differenceInDays, 'differenceInDays-----------');
+            console.log(difference, 'difference-----------');
 
          } catch (error) {
             console.error('Error updating user:', error);
@@ -129,7 +128,7 @@ app.post("/", async (req, res) => {
                attachmentsResponse.data.map((item, i) =>
                   sendMessage(
                      user_chat_id,
-                     `New notification arrived from Trello\n Finished Video ${i + 1} - ${item.url}`
+                     `New notification arrived from Trello\n Finished Video ${i + 1} - ${item.url}\nDuration: ${difference}`
                   )
                );
                // console.log(videoURLs, 'vi')
