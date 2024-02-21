@@ -1,4 +1,4 @@
-function formatDateDifference(startDate, endDate) {
+const formatDateDifference = (startDate, endDate) => {
    // Calculate the total difference in milliseconds
    let totalDiff = endDate.getTime() - startDate.getTime();
 
@@ -17,6 +17,12 @@ function formatDateDifference(startDate, endDate) {
    // Format the string
    return `${days} days ${hours} hours ${minutes} mins ${seconds} secs`;
 }
+
+// Example usage
+// const startDate = new Date("Tue Feb 20 2024 22:27:33 GMT+0000 (Coordinated Universal Time)"); // Example start date
+// const endDate = new Date("2024-02-22T15:30:45Z"); // Example end date
+
+// console.log(formatDateDifference(startDate, endDate));
 
 module.exports = {
    formatDateDifference

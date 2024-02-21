@@ -93,7 +93,7 @@ app.post("/", async (req, res) => {
 
          try {
             const startDate = new Date(user_data[0]['created_at']);
-            const endDate = Date.now();
+            const endDate = new Date();
 
             const updated_result = await Data.update({ finished_at: endDate }, {
                where: {
