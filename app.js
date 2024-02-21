@@ -90,6 +90,36 @@ app.post("/", async (req, res) => {
             }
          });
 
+         try {
+            const startDate = new Date(user_data[0]['created_at']);
+            const endDate = Date.now();
+
+            const updated_result = await User.update({ finished_at: endDate }, {
+               where: {
+                  trello_card_id: cardId
+               }
+            });
+
+            
+            // Calculate the difference in milliseconds
+            const differenceInMilliseconds = endDate - startDate;
+
+            // Convert the difference to various units
+            const differenceInSeconds = differenceInMilliseconds / 1000;
+            const differenceInMinutes = differenceInSeconds / 60;
+            const differenceInHours = differenceInMinutes / 60;
+            const differenceInDays = differenceInHours / 24;
+         
+            console.log(updated_result, 'updated_result-----------'); // Result will show the number of rows affected
+            console.log(differenceInSeconds, 'differenceInSeconds-----------');
+            console.log(differenceInMinutes, 'differenceInMinutes-----------');
+            console.log(differenceInHours, 'differenceInHours-----------');
+            console.log(differenceInDays, 'differenceInDays-----------');
+
+         } catch (error) {
+            console.error('Error updating user:', error);
+         }
+
          console.log(user_data, 'user_data---------');
 
          if(user_data.length>0){
