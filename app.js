@@ -30,10 +30,6 @@ async function createTrelloWebhook() {
    }
 }
 
-// app.get("/", (req, res) => {
-//    return res.send("Hello")
-// })
-
 async function sendVideo(chatId, videoUrl, caption) {
    try {
       const response = await axios.post(

@@ -13,5 +13,5 @@ const sequelize = new Sequelize(db, user, pass, {
 	host,
 });
 
-// module.exports = sequelize;
-export default sequelize;
+module.exports = sequelize;
+// export default sequelize;
