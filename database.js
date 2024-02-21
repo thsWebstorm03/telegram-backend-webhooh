@@ -1,10 +1,12 @@
 // const Sequelize = require("sequelize");
-import Sequelize from "sequelize";
+const Sequelize = require("sequelize");
+const dotenv = require("dotenv");
+dotenv.config();
 
-let db = "trello_db";
-let user = "root";
-let pass = "iamattila01A!";
-let host = "66.29.130.114";
+let db = process.env.DB_NAME;
+let user = process.env.DB_USER;
+let pass = process.env.DB_PASS;
+let host = process.env.DB_HOST;
 
 const sequelize = new Sequelize(db, user, pass, {
 	dialect: "mysql",

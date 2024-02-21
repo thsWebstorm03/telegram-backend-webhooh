@@ -1,5 +1,5 @@
-import Sequelize from "sequelize";
-import sequelize from "./database.js";
+const Sequelize = require("sequelize");
+const sequelize = require("./database.js");
 
 const Data = sequelize.define(
 	"video_logs",
@@ -23,4 +23,4 @@ const Data = sequelize.define(
 );
 
 // module.exports = Data;
-export default Data;
+module.exports = Data;
