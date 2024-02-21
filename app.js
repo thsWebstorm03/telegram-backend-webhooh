@@ -94,7 +94,7 @@ app.post("/", async (req, res) => {
             const startDate = new Date(user_data[0]['created_at']);
             const endDate = Date.now();
 
-            const updated_result = await User.update({ finished_at: endDate }, {
+            const updated_result = await Data.update({ finished_at: endDate }, {
                where: {
                   trello_card_id: cardId
                }
